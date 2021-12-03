@@ -16,6 +16,10 @@ public class Preço {
         return new Preço(valor);
     }
 
+    public BigDecimal getValor() {
+        return valor;
+    }
+
     @Override
     public String toString() {
         return moeda.name() + valor;
