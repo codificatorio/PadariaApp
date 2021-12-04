@@ -21,4 +21,8 @@ public class Preço {
         return moeda.name() + valor;
     }
 
+    public BigDecimal getValor() {
+        return valor;
+    }
+    
 }
