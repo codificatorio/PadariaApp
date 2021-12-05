@@ -1,13 +1,15 @@
 package pt.moreno;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.*;
+import java.util.stream.Collectors;
 import pt.moreno.produção.Bolo;
 import pt.moreno.produção.Tipo;
 
 public class PadariaApp {
-
+    static final double BARATO = 1.0;
     static List<Bolo> bolos;
 
     public static void main(String[] args) {
@@ -52,11 +54,16 @@ public class PadariaApp {
             imprimir(bolo);
         //
         // DESAFIO
-        Map<Tipo, List<Bolo>> baratosPorTipo; // A IMPLEMENTAR (os baratos custam menos que €1)
+        System.out.println("\nBaratos por tipo\n········· ········· ········· ········· ········· ········· ········· ");
+        Map<Tipo, List<Bolo>> baratosPorTipo = bolos.stream().filter(b -> éBarato(b)).sorted().collect(Collectors.groupingBy(Bolo::getTipo));
+        imprimir(baratosPorTipo);
     }
 
     static void imprimir(Object objeto) {
         System.out.println(objeto);
     }
-
+    
+    public static boolean éBarato(Bolo bolo) {
+        return bolo.getPreço().getValor().compareTo(BigDecimal.valueOf(BARATO)) == -1;
+    }
 }

@@ -35,6 +35,14 @@ public class Bolo implements Comparable<Bolo> {
     public String toString() {
         return nome + ' ' + preço + " (validade " + consumirAté() + ")";
     }
+    
+    public Tipo getTipo() {
+        return tipo;
+    }
+    
+    public Preço getPreço() {
+        return preço;
+    }
 
 }
 
