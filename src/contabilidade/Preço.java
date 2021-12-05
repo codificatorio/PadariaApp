@@ -20,5 +20,9 @@ public class Preço {
     public String toString() {
         return moeda.name() + valor;
     }
+    
+    public double getValor() {
+        return valor.doubleValue();
+    }
 
 }

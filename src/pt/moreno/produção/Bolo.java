@@ -11,7 +11,7 @@ public class Bolo implements Comparable<Bolo> {
     Preço preço; // classe próprio com extra funcionalidade (que BigDecimal não possui)
     LocalDateTime produzido; // 2021-12-12 com validade de 3 meses e 2 semanas
     Period validade;
-    Tipo tipo;
+    public final Tipo tipo; // constante => desnecessário getter
 
     public Bolo(String nome, int gramas, LocalDateTime dataDeProdução, Period validade, double preço, Tipo tipo) {
         this.nome = nome;
@@ -35,6 +35,12 @@ public class Bolo implements Comparable<Bolo> {
     public String toString() {
         return nome + ' ' + preço + " (validade " + consumirAté() + ")";
     }
+
+    public double €() {
+        return preço.getValor();
+    }
+    
+    
 
 }
 

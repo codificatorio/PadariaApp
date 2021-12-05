@@ -3,6 +3,7 @@ package pt.moreno;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.*;
+import java.util.stream.Collectors;
 import pt.moreno.produção.Bolo;
 import pt.moreno.produção.Tipo;
 
@@ -24,16 +25,13 @@ public class PadariaApp {
             new Bolo("Pastel de Bacalhau", 75, LocalDateTime.of(2021, 12, 3, 6, 00), Period.ofDays(2), 1.6, Tipo.Salgado),
             new Bolo("Rissol", 59, LocalDateTime.of(2021, 12, 2, 18, 00), Period.ofDays(2), .99, Tipo.Salgado)
         });
-        for (Bolo bolo : bolos)
-            imprimir(bolo);
+        bolos.forEach(PadariaApp::imprimir);
         // ········· ········· ········· ········· ·········  
         System.out.println("\nPor ordem alfabética\n········· ········· ········· ········· ········· ········· ········· ");
         Collections.sort(bolos); // somente possível porque Bolo tem o método compareTo()
-        for (Bolo bolo : bolos)
-            imprimir(bolo);
+        bolos.forEach(PadariaApp::imprimir);
         // ········· ········· ········· ········· ·········  
         System.out.println("\nPor ordem de validade\n········· ········· ········· ········· ········· ········· ········· ");
-        System.out.println("Como implementar??");
         /*
         // sintaxe das classes anónimas internas
         ordenador = new Comparator<Bolo>() {
@@ -48,15 +46,27 @@ public class PadariaApp {
          */
         // definição "in situ" de uma nova "classe local" com sintaxe lambda que implementa Comparator
         Collections.sort(bolos, (um, outro) -> um.consumirAté().compareTo(outro.consumirAté()));
-        for (Bolo bolo : bolos)
-            imprimir(bolo);
+        bolos.forEach(PadariaApp::imprimir);
         //
         // DESAFIO
+        System.out.println("\nBaratos < €1 por tipo\n········· ········· ········· ········· ········· ········· ········· ");
         Map<Tipo, List<Bolo>> baratosPorTipo; // A IMPLEMENTAR (os baratos custam menos que €1)
+        baratosPorTipo = bolos.stream().collect(Collectors.filtering(
+                bolo -> bolo.€() < 1,
+                Collectors.groupingBy(bolo -> bolo.tipo))
+        );
+        imprimir(baratosPorTipo);
     }
 
     static void imprimir(Object objeto) {
         System.out.println(objeto);
+    }
+
+    static void imprimir(Map<Tipo, List<Bolo>> coleção) {
+        coleção.keySet().forEach(tipo -> {
+            imprimir("--- " + tipo.toString().toUpperCase());
+            coleção.get(tipo).forEach(PadariaApp::imprimir);
+        });
     }
 
 }
