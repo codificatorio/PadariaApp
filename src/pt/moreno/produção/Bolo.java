@@ -1,7 +1,10 @@
 package pt.moreno.produção;
 
 import contabilidade.Preço;
+
+import java.math.BigDecimal;
 import java.time.*;
+import java.util.function.Predicate;
 
 public class Bolo implements Comparable<Bolo> {
 
@@ -34,6 +37,21 @@ public class Bolo implements Comparable<Bolo> {
     @Override
     public String toString() {
         return nome + ' ' + preço + " (validade " + consumirAté() + ")";
+    }
+
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public Preço getPreço() {
+        return preço;
+    }
+
+    Predicate<Preço> menorQue1 = p -> p.getValor().compareTo(BigDecimal.ONE) == -1;
+
+    public boolean éBarato() {
+//        return menorQue1.test(this.preço);
+        return this.preço.getValor().compareTo(BigDecimal.ONE) == -1;
     }
 
 }

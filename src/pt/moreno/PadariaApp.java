@@ -1,10 +1,16 @@
 package pt.moreno;
 
-import java.time.LocalDateTime;
-import java.time.Period;
-import java.util.*;
 import pt.moreno.produção.Bolo;
 import pt.moreno.produção.Tipo;
+
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class PadariaApp {
 
@@ -24,13 +30,15 @@ public class PadariaApp {
             new Bolo("Pastel de Bacalhau", 75, LocalDateTime.of(2021, 12, 3, 6, 00), Period.ofDays(2), 1.6, Tipo.Salgado),
             new Bolo("Rissol", 59, LocalDateTime.of(2021, 12, 2, 18, 00), Period.ofDays(2), .99, Tipo.Salgado)
         });
-        for (Bolo bolo : bolos)
+        for (Bolo bolo : bolos) {
             imprimir(bolo);
+        }
         // ········· ········· ········· ········· ·········  
         System.out.println("\nPor ordem alfabética\n········· ········· ········· ········· ········· ········· ········· ");
         Collections.sort(bolos); // somente possível porque Bolo tem o método compareTo()
-        for (Bolo bolo : bolos)
+        for (Bolo bolo : bolos) {
             imprimir(bolo);
+        }
         // ········· ········· ········· ········· ·········  
         System.out.println("\nPor ordem de validade\n········· ········· ········· ········· ········· ········· ········· ");
         System.out.println("Como implementar??");
@@ -48,11 +56,30 @@ public class PadariaApp {
          */
         // definição "in situ" de uma nova "classe local" com sintaxe lambda que implementa Comparator
         Collections.sort(bolos, (um, outro) -> um.consumirAté().compareTo(outro.consumirAté()));
-        for (Bolo bolo : bolos)
+        for (Bolo bolo : bolos) {
             imprimir(bolo);
+        }
         //
+
         // DESAFIO
-        Map<Tipo, List<Bolo>> baratosPorTipo; // A IMPLEMENTAR (os baratos custam menos que €1)
+        System.out.println("DESAFIO");
+
+        final double preçoBarato = 1.0;
+        Predicate<Bolo> éBarato = b -> b.getPreço().getValor().doubleValue() < preçoBarato;
+
+//        Map<Tipo, List<Bolo>> baratosPorTipo; // A IMPLEMENTAR (os baratos custam menos que €1)
+        Map<Tipo, List<Bolo>> baratosPorTipo = bolos.stream()
+                //                .filter(Bolo::éBarato)
+                .filter(éBarato)
+                .collect(Collectors.groupingBy(Bolo::getTipo));
+
+        System.out.println(baratosPorTipo);
+
+        baratosPorTipo.forEach((key, value) -> {
+            System.out.println(key);
+            value.forEach(PadariaApp::imprimir);
+        });
+
     }
 
     static void imprimir(Object objeto) {
