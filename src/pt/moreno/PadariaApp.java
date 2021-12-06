@@ -32,30 +32,11 @@ public class PadariaApp {
         bolos.forEach(PadariaApp::imprimir);
         // ········· ········· ········· ········· ·········  
         System.out.println("\nPor ordem de validade\n········· ········· ········· ········· ········· ········· ········· ");
-        /*
-        // sintaxe das classes anónimas internas
-        ordenador = new Comparator<Bolo>() {
-            @Override
-            public int compare(Bolo um, Bolo outro) {
-                return um.consumirAté().compareTo(outro.consumirAté());
-            }
-        };
-        // sintaxe lambda, com atribuição a uma variável 
-        Comparator<Bolo> ordenador = (um, outro) -> um.consumirAté().compareTo(outro.consumirAté());
-        Collections.sort(bolos, ordenador);
-         */
-        // definição "in situ" de uma nova "classe local" com sintaxe lambda que implementa Comparator
         Collections.sort(bolos, (um, outro) -> um.consumirAté().compareTo(outro.consumirAté()));
         bolos.forEach(PadariaApp::imprimir);
-        //
         // DESAFIO
         System.out.println("\nBaratos < €1 por tipo\n········· ········· ········· ········· ········· ········· ········· ");
         Map<Tipo, List<Bolo>> baratosPorTipo; // A IMPLEMENTAR (os baratos custam menos que €1)
-        baratosPorTipo = bolos.stream().collect(Collectors.filtering(
-                bolo -> bolo.€() < 1,
-                Collectors.groupingBy(bolo -> bolo.tipo))
-        );
-        imprimir(baratosPorTipo);
     }
 
     static void imprimir(Object objeto) {
