@@ -28,7 +28,10 @@ public class PadariaApp {
             new Bolo("Croissant", 66, LocalDateTime.of(2021, 12, 2, 8, 15), Period.ofDays(1), 2, Tipo.Doce),
             new Bolo("Quiche", 125, LocalDateTime.of(2021, 12, 3, 13, 15), Period.ofDays(3), 3.5, Tipo.Salgado),
             new Bolo("Pastel de Bacalhau", 75, LocalDateTime.of(2021, 12, 3, 6, 00), Period.ofDays(2), 1.6, Tipo.Salgado),
-            new Bolo("Rissol", 59, LocalDateTime.of(2021, 12, 2, 18, 00), Period.ofDays(2), .99, Tipo.Salgado)
+            new Bolo("Rissol", 59, LocalDateTime.of(2021, 12, 2, 18, 00), Period.ofDays(2), .99, Tipo.Salgado),
+            new Bolo("Bola integral", 75, LocalDateTime.of(2021, 12, 6, 18, 00), Period.ofDays(2), 1, Tipo.Pão),
+            new Bolo("Bolinha de água", 69, LocalDateTime.of(2021, 12, 5, 18, 00), Period.ofDays(2), .65, Tipo.Pão),
+            new Bolo("Carcaça", 10, LocalDateTime.of(2021, 11, 30, 18, 00), Period.ofDays(2), .25, Tipo.Pão)
         });
         for (Bolo bolo : bolos) {
             imprimir(bolo);
