@@ -59,7 +59,8 @@ public class PadariaApp {
         //
         // DESAFIO
         System.out.println("\nBaratos por tipo\n········· ········· ········· ········· ········· ········· ········· ");
-        Map<Tipo, List<Bolo>> baratosPorTipo = bolos.stream().filter(b -> éBarato(b)).sorted().collect(Collectors.groupingBy(Bolo::getTipo));
+        Map<Tipo, List<Bolo>> baratosPorTipo = 
+                bolos.stream().filter(b -> éBarato(b)).sorted().collect(Collectors.groupingBy(Bolo::getTipo));
         imprimir(baratosPorTipo);
     }
 
